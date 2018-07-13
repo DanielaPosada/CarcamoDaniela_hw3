@@ -10,8 +10,8 @@ double fescalon(double y);
 int main(){
 
   
-  double nx=80.0;
-  double nt=30.0;
+  int nx=80;
+  int nt=30;
   double dx=2.0/nx;
   double c=1.0;
   double dt=(1/2.0)*dx/c;
@@ -25,11 +25,11 @@ int main(){
   double Ufuturo[nx];
   double u_inicial[nx];
 double Upasado[nx];
-for(i=0;i<nx;i++)
+ for(i=0;i<nx;i++)
     {
   	x[i]=dx*i;
 	u_inicial[i]=fescalon(x[i]);
-	U_pasado[i]=u_inicial[i];
+	Upasado[i]=u_inicial[i];
     }    
 Ufuturo[0]=1.0;
 Ufuturo[nx-1]=1.0;
@@ -37,16 +37,16 @@ Ufuturo[nx-1]=1.0;
 double Upresente[nx];	
 Upresente[0]=1.0;
 Upresente[nx-1]=1.0;
-for(i=1;i<nx-1;i++)
+ for(i=1;i<nx-1;i++)
     {
-        	Ufuturo[i]=-(c*dt/dx)*(u_inicial[i]-u_inicial[i-1])+u_inicial[i];
+        Ufuturo[i]=-(c*dt/dx)*(u_inicial[i]-u_inicial[i-1])+u_inicial[i-1];
 	Upresente[i]=Ufuturo[i];
     }
-for (j=0;j<nt;j++)
+ for (j=0;j<nt;j++)
 {
-	for (i=1;i<nx-1<i++)
+  for (i=1;i<nx-1;i++)
 	{
-		Ufututo[i]=Upresente[i]-((c*dt/dx)*(Upresente[i]-Upresente[i-1])	)
+	  Ufuturo[i-1]=Upresente[i-1]-((c*dt/dx)*(Upresente[i]-Upresente[i-1]));
 	}
 Upasado[j]=Upresente[j];
 Upresente[j]=Ufuturo[j];
@@ -58,7 +58,7 @@ Upresente[j]=Ufuturo[j];
 
 double fescalon(double y)
 {
-	double resp:
+  double resp;
 	
 	if(0.75<y<=1.25)
 	{
